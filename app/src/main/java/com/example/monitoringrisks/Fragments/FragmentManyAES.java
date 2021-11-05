@@ -1,6 +1,7 @@
 package com.example.monitoringrisks.Fragments;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import com.example.monitoringrisks.AESRepository;
 import com.example.monitoringrisks.AdapterManyAES;
 import com.example.monitoringrisks.R;
 import com.example.monitoringrisks.databinding.ViewFragmentManyAesBinding;
+import com.example.monitoringrisks.viewmodel.AESViewModel;
+import com.example.monitoringrisks.viewmodel.ManyAESViewModel;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,17 +60,18 @@ public class FragmentManyAES extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        binding = DataBindingUtil.setContentView(this.getActivity(), R.layout.view_fragment_many_aes);
+        binding = DataBindingUtil.inflate(inflater,R.layout.view_fragment_many_aes,container,false);
         if(AESRepository.getInstance().getData().size()==0){
             AESRepository.getInstance().refresh();
         }
         binding.setVm(manyAESViewModel);
         AdapterManyAES adapterManyAES = new AdapterManyAES(manyAESViewModel);
         binding.setAdapter(adapterManyAES);
+        //binding.executePendingBindings();
+        binding.getRoot().setBackgroundColor(Color.BLUE);
         //RecyclerView recyclerView = binding.getRoot().findViewById(R.id.RVaes);
         //recyclerView.setAdapter(adapterManyAES);
 
-
-        return null;
+        return binding.getRoot();
     }
 }

@@ -19,8 +19,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.monitoringrisks.AESRepository;
 import com.example.monitoringrisks.R;
-import com.example.monitoringrisks.ViewModel.AESViewModel;
 import com.example.monitoringrisks.databinding.ViewFragmentAesBinding;
+import com.example.monitoringrisks.viewmodel.AESViewModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

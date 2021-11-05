@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.monitoringrisks.databinding.VManyAesItemBinding;
+import com.example.monitoringrisks.viewmodel.AESViewModel;
+import com.example.monitoringrisks.viewmodel.ManyAESViewModel;
 
 public class AdapterManyAES extends RecyclerView.Adapter<AdapterManyAES.AESHolder> {
 

@@ -1,4 +1,4 @@
-package com.example.monitoringrisks.ViewModel;
+package com.example.monitoringrisks.viewmodel;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

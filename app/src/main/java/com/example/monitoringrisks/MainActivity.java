@@ -9,7 +9,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.monitoringrisks.Fragments.FragmentFeed;
 import com.example.monitoringrisks.Fragments.FragmentManyAES;
+import com.example.monitoringrisks.Fragments.FragmentNavigationPanel;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -40,38 +42,27 @@ public class MainActivity extends FragmentActivity {
         instance =this;
         activity = this;
 
-        HashMap<String,Float> data = new HashMap<>();
-        for(int i=0;i<6;i++){
-            data.put((i+1)+"",i+1f);
-        }
-        Diagram diagramP = new Diagram("Pie", TypeDiagram.Pie,data,1);
-        Diagram diagramR = new Diagram("Radar", TypeDiagram.Radar,data,2);
-        Diagram diagramB = new Diagram("Bar", TypeDiagram.Bar,data,3);
-        List<Diagram> diagramHashMap = new ArrayList<>();
-        diagramHashMap.add(diagramP);
-        diagramHashMap.add(diagramR);
-        diagramHashMap.add(diagramB);
-        System.out.println("dhm"+diagramHashMap);
-        AES aes = new AES("AES2");
-        aes.setDiscription("хорошая АЭС");
-        aes.setList_diagram(diagramHashMap);
-        StaticTables.getInstance().daoAES.insert(aes);
-        System.out.println(StaticTables.getInstance().daoAES.findAll());
-        AESRepository.getInstance().refresh();
+
         FragmentManager fm = getSupportFragmentManager();
-
         FragmentTransaction ft= fm.beginTransaction();
-        FragmentManyAES fragmentManyAES = new FragmentManyAES(Arrays.asList(new AES[]{aes}));
+
+        FragmentFeed fragmentFeed = FragmentFeed.getInstance();
+
+        ft.replace(R.id.ActivityFrame,fragmentFeed);
+        ft.commit();
+        ft = fm.beginTransaction();
 
 
-        ft.replace(R.id.ActivityFrame,fragmentManyAES);
 
+
+        FragmentNavigationPanel navigationPanel = FragmentNavigationPanel.getInstance();
+        ft.add(R.id.BotNav,navigationPanel);
         ft.commit();
 
 
+        User user = new User("alexander","zaporozhskih");
 
-
-
+        StaticTables.getInstance().daoUser.insert(user);
 
 
     }

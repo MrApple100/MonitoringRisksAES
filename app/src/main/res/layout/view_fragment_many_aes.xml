@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout
+    >
     <data>
         <import type="java.util.List"/>
         <import type="android.view.View"/>
+        <import type="com.example.monitoringrisks.viewmodel.ManyAESViewModel"/>
         <variable
             name="vm"
-            type="com.example.monitoringrisks.ViewModel.ManyAESViewModel"/>
+            type="ManyAESViewModel"/>
         <variable
             name="adapter"
             type="com.example.monitoringrisks.AdapterManyAES" />
     </data>
-<androidx.recyclerview.widget.RecyclerView
-    android:background="@color/white"
-    android:adapter="@{adapter}"
-    android:id="@+id/RVaes"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/greyback"
+        android:orientation="vertical">
+        <androidx.recyclerview.widget.RecyclerView
+            android:background="@color/greyback"
+            android:adapter="@{adapter}"
+            android:id="@+id/RVaes"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            >
 
-</androidx.recyclerview.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
 </layout>

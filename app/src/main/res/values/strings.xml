@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MonitoringRisks</string>
+    <string name="some_id">nameaes</string>
+    <string name="monitoring_risks">Monitoring Risks</string>
+    <string name="surname">Surname</string>
+    <string name="name">Name</string>
+    <string name="position">Position</string>
 </resources>

@@ -11,17 +11,17 @@ import androidx.room.Update;
 import java.util.List;
 
 @Dao
-interface DaoAES {
+public interface DaoAES {
     @Query("SELECT * FROM AESS")
-    List<AES> findAll();
+    public List<AES> findAll();
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void add(List<AES> aesList);
+    public void add(List<AES> aesList);
     @Update
-    void update(AES aes);
+    public void update(AES aes);
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(AES aes);
+    public void insert(AES aes);
     @Query("SELECT * FROM AESS WHERE id =:hcName")
-    LiveData<AES> getbyName(Integer hcName);
+    public LiveData<AES> getbyName(Integer hcName);
     @Delete(entity = AES.class)
-    void deletebyid(Integer id);
+    public void deletebyid(Integer id);
 }

@@ -1,4 +1,4 @@
-package com.example.monitoringrisks.ViewModel;
+package com.example.monitoringrisks.viewmodel;
 
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.ViewModel;

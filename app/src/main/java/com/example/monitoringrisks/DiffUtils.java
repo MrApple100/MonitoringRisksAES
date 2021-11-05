@@ -3,6 +3,8 @@ package com.example.monitoringrisks;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
+import com.example.monitoringrisks.viewmodel.AESViewModel;
+
 public class DiffUtils {
     private DiffUtil.ItemCallback<AESViewModel> aesItemCallback;
     private static DiffUtils S_DIFF_UTILS = new DiffUtils();
