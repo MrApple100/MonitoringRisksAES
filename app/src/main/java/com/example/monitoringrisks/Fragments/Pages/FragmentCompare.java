@@ -1,4 +1,4 @@
-package com.example.monitoringrisks.Fragments;
+package com.example.monitoringrisks.Fragments.Pages;
 
 import androidx.fragment.app.Fragment;
 

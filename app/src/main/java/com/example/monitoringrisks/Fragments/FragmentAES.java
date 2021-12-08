@@ -36,7 +36,7 @@ public class FragmentAES extends Fragment {
             mFragmentProvider = new ViewModelProvider(this);
         }
         aesViewModel = mFragmentProvider.get(AESViewModel.class);
-        aesViewModel.aesLiveData.set(AESRepository.getInstance().getAES(hcName).getValue());
+        aesViewModel.aesLiveData.set(AESRepository.getInstance().getAES(hcName));
     }
 
     @Override

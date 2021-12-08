@@ -1,4 +1,4 @@
-package com.example.monitoringrisks.Fragments;
+package com.example.monitoringrisks.Fragments.Pages;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +13,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.monitoringrisks.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 
 public class NavigationFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
     static private NavigationFragment instance;
@@ -50,18 +49,18 @@ public class NavigationFragment extends Fragment implements BottomNavigationView
         FragmentManager fragmentManager = getFragmentManager();
         switch (item.getItemId()) {
             case R.id.ToFavorite:
-                getFragmentManager().beginTransaction().replace(R.id.container, fragmentFavorite).commit();
+                getFragmentManager().beginTransaction().replace(R.id.ActivityFrame, fragmentFavorite).commit();
                 return true;
 
             case R.id.ToFeed:
-                getFragmentManager().beginTransaction().replace(R.id.container, fragmentFeed).commit();
+                getFragmentManager().beginTransaction().replace(R.id.ActivityFrame, fragmentFeed).commit();
                 return true;
 
             case R.id.ToCompare:
-                getFragmentManager().beginTransaction().replace(R.id.container, fragmentCompare).commit();
+                getFragmentManager().beginTransaction().replace(R.id.ActivityFrame, fragmentCompare).commit();
                 return true;
             case R.id.ToProfile:
-                getFragmentManager().beginTransaction().replace(R.id.container, fragmentProfile).commit();
+                getFragmentManager().beginTransaction().replace(R.id.ActivityFrame, fragmentProfile).commit();
                 return true;
         }
         return false;

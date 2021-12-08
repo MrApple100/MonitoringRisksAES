@@ -72,6 +72,7 @@
                             android:orientation="vertical">
 
                             <ImageView
+                                android:id="@+id/SETFavorite"
                                 android:layout_width="20dp"
                                 android:layout_height="18.75dp"
                                 android:layout_gravity="center_horizontal"

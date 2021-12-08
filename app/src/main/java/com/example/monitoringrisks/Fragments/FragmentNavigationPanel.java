@@ -13,8 +13,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.monitoringrisks.Fragments.Pages.FragmentFavorite;
+import com.example.monitoringrisks.Fragments.Pages.FragmentFeed;
+import com.example.monitoringrisks.Fragments.Pages.FragmentProfile;
 import com.example.monitoringrisks.R;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;

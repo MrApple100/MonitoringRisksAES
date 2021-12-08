@@ -5,9 +5,7 @@
         <import type="java.util.List"/>
         <import type="android.view.View"/>
         <import type="com.example.monitoringrisks.viewmodel.ManyAESViewModel"/>
-        <variable
-            name="vm"
-            type="ManyAESViewModel"/>
+
         <variable
             name="adapter"
             type="com.example.monitoringrisks.AdapterManyAES" />

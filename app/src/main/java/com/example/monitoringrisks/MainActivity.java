@@ -9,15 +9,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.monitoringrisks.Fragments.FragmentFeed;
-import com.example.monitoringrisks.Fragments.FragmentManyAES;
+import com.example.monitoringrisks.Fragments.Pages.FragmentFeed;
 import com.example.monitoringrisks.Fragments.FragmentNavigationPanel;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 public class MainActivity extends FragmentActivity {
     private static Context instance;
@@ -62,7 +57,7 @@ public class MainActivity extends FragmentActivity {
 
         User user = new User("alexander","zaporozhskih");
 
-        StaticTables.getInstance().daoUser.insert(user);
+        new StaticTables().daoUser.insert(user);
 
 
     }

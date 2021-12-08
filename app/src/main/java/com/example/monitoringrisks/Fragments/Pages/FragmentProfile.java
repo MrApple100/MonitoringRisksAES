@@ -1,11 +1,10 @@
-package com.example.monitoringrisks.Fragments;
+package com.example.monitoringrisks.Fragments.Pages;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.StackView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.monitoringrisks.R;
 import com.example.monitoringrisks.StaticTables;
 import com.example.monitoringrisks.databinding.FragmentProfileViewBinding;
-import com.example.monitoringrisks.viewmodel.ManyAESViewModel;
 import com.example.monitoringrisks.viewmodel.ProfileViewModel;
 
 public class FragmentProfile extends Fragment {
@@ -40,8 +38,8 @@ public class FragmentProfile extends Fragment {
             mFragmentProvider = new ViewModelProvider(this);
         }
         profileViewModel = mFragmentProvider.get(ProfileViewModel.class);
-        Log.d("USER",StaticTables.getInstance().daoUser.get().getSurname()+"");
-        profileViewModel.user.setValue(StaticTables.getInstance().daoUser.get());
+        Log.d("USER",new StaticTables().daoUser.get().getSurname()+"");
+        profileViewModel.user.setValue(new StaticTables().daoUser.get());
     }
 
     @Nullable

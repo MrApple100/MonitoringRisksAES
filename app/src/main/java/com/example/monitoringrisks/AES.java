@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Entity(tableName = "AESS")
+@Entity(tableName = "AESeS")
 public class AES {
     @PrimaryKey
     private int id;
@@ -17,12 +17,18 @@ public class AES {
     private String Name;
     @ColumnInfo(name = "Description")
     private String Discription;
+    @ColumnInfo(name = "isFavorite")
+    private boolean is_favorite;
+    @ColumnInfo(name = "isComparable")
+    private boolean is_comparable;
    // @TypeConverters(ConverterSList.class)
    // private List<Long> list_ids_diagram = new ArrayList<>();
 
-    public AES(String Name) {
+    public AES(String Name,boolean is_favorite,boolean is_comparable) {
         this.Name = Name;
         this.id = Name.hashCode();
+        this.is_favorite=is_favorite;
+        this.is_comparable=is_comparable;
     }
 
     public void setPhoto(String photo) {
@@ -64,25 +70,52 @@ public class AES {
 
 
  */
+
+    public boolean getIs_favorite() {
+        return is_favorite;
+    }
+
+    public void setIs_favorite(boolean is_favorite) {
+        this.is_favorite = is_favorite;
+    }
+
+    public boolean getIs_comparable() {
+        return is_comparable;
+    }
+
+    public void setIs_comparable(boolean is_comparable) {
+        this.is_comparable = is_comparable;
+    }
+
     public void setDiscription(String discription) {
         this.Discription = discription;
-        StaticTables.getInstance().daoAES.update(this);
+        new StaticTables().daoAES.update(this);
     }
 
     public void setList_diagram(List<Diagram> list_diagram) {
 
         list_diagram = list_diagram.stream().map(diagram -> {diagram.setIdAES(id); return diagram;}).collect(Collectors.toList());
         System.out.println(list_diagram.get(0).getIdAES());
-        StaticTables.getInstance().daoDiagram.deleteByidAES(Integer.valueOf(id));
-        StaticTables.getInstance().daoDiagram.add(list_diagram);
-        System.out.println(StaticTables.getInstance().daoDiagram.getdiagramsbyidAES(id).size());
+        new StaticTables().daoDiagram.deleteByidAES(Integer.valueOf(id));
+        new StaticTables().daoDiagram.add(list_diagram);
+        System.out.println(new StaticTables().daoDiagram.getdiagramsbyidAES(id).size());
 
     }
 
     public List<Diagram> getList_diagram() {
-        return StaticTables.getInstance().daoDiagram.getdiagramsbyidAES(id);
+        return new StaticTables().daoDiagram.getdiagramsbyidAES(id);
     }
 
-
+    @Override
+    public String toString() {
+        return "AES{" +
+                "id=" + id +
+                ", Photo='" + Photo + '\'' +
+                ", Name='" + Name + '\'' +
+                ", Discription='" + Discription + '\'' +
+                ", is_favorite=" + is_favorite +
+                ", is_comparable=" + is_comparable +
+                '}';
+    }
 }
 

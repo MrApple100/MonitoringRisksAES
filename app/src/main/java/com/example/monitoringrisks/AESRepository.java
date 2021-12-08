@@ -15,7 +15,7 @@ import rx.schedulers.Schedulers;
 public class AESRepository {
     private static AESRepository instance;
     private AESNetwork aesnetwork = new AESNetwork();
-    private DaoAES daoAES = StaticTables.getInstance().daoAES;
+    private DaoAES daoAES = new StaticTables().daoAES;
     private List<AES> data;
     private AESRepository() {
         data = daoAES.findAll();
@@ -54,7 +54,7 @@ public class AESRepository {
                 });
     }
 
-    public LiveData<AES> getAES(int hcName) {
+    public AES getAES(int hcName) {
         return daoAES.getbyName(hcName);
     }
 
@@ -62,7 +62,4 @@ public class AESRepository {
         return data;
     }
 
-    public void setData(List<AES> data) {
-        this.data = data;
-    }
 }
