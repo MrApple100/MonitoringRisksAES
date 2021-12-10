@@ -22,6 +22,7 @@ import com.example.monitoringrisks.R;
 import com.example.monitoringrisks.StaticTables;
 import com.example.monitoringrisks.databinding.ViewFragmentManyAesBinding;
 import com.example.monitoringrisks.viewmodel.AESViewModel;
+import com.example.monitoringrisks.viewmodel.EnumFragmentName;
 import com.example.monitoringrisks.viewmodel.ManyAESViewModel;
 
 import java.util.List;
@@ -32,11 +33,15 @@ public class FragmentManyAES extends Fragment {
     ManyAESViewModel manyAESViewModel;
     ViewFragmentManyAesBinding binding;
     ViewModelProvider mFragmentProvider;
+    EnumFragmentName name;
+    Fragment rootfragment;
 
-    public FragmentManyAES(List<AESViewModel> aesViewModels) {
+    public FragmentManyAES(List<AESViewModel> aesViewModels, EnumFragmentName name,Fragment rootfragment) {
         this.aesViewModels = aesViewModels;
-
+        this.rootfragment = rootfragment;
         Log.d("AESLIST",aesViewModels.toString());
+
+        this.name = name;
 
     }
 
@@ -64,7 +69,7 @@ public class FragmentManyAES extends Fragment {
             AESRepository.getInstance().refresh();
         }
 
-        AdapterManyAES adapterManyAES = new AdapterManyAES(manyAESViewModel);
+        AdapterManyAES adapterManyAES = new AdapterManyAES(manyAESViewModel,name,rootfragment);
         binding.setAdapter(adapterManyAES);
         //binding.executePendingBindings();
         binding.getRoot().setBackgroundColor(Color.BLUE);

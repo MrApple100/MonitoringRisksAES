@@ -30,13 +30,9 @@ public class FragmentAES extends Fragment {
     private AESViewModel aesViewModel;
     ViewFragmentAesBinding binding;
     ViewModelProvider mFragmentProvider;
-
+    int hcName;
     public FragmentAES(int hcName) {
-        if(mFragmentProvider == null){
-            mFragmentProvider = new ViewModelProvider(this);
-        }
-        aesViewModel = mFragmentProvider.get(AESViewModel.class);
-        aesViewModel.aesLiveData.set(AESRepository.getInstance().getAES(hcName));
+        this.hcName = hcName;
     }
 
     @Override
@@ -48,7 +44,11 @@ public class FragmentAES extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        if(mFragmentProvider == null){
+            mFragmentProvider = new ViewModelProvider(this);
+        }
+        aesViewModel = mFragmentProvider.get(AESViewModel.class);
+        aesViewModel.aesLiveData.set(AESRepository.getInstance().getAES(hcName));
        //View view = inflater.inflate(R.layout.view_fragment_aes,container,false);
         binding = DataBindingUtil.setContentView(this.getActivity(), R.layout.view_fragment_aes);
 

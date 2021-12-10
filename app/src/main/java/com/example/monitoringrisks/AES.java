@@ -89,21 +89,21 @@ public class AES {
 
     public void setDiscription(String discription) {
         this.Discription = discription;
-        new StaticTables().daoAES.update(this);
+        StaticTables.getInstance().daoAES.update(this);
     }
 
     public void setList_diagram(List<Diagram> list_diagram) {
 
         list_diagram = list_diagram.stream().map(diagram -> {diagram.setIdAES(id); return diagram;}).collect(Collectors.toList());
         System.out.println(list_diagram.get(0).getIdAES());
-        new StaticTables().daoDiagram.deleteByidAES(Integer.valueOf(id));
-        new StaticTables().daoDiagram.add(list_diagram);
-        System.out.println(new StaticTables().daoDiagram.getdiagramsbyidAES(id).size());
+        StaticTables.getInstance().daoDiagram.deleteByidAES(Integer.valueOf(id));
+        StaticTables.getInstance().daoDiagram.add(list_diagram);
+        System.out.println(StaticTables.getInstance().daoDiagram.getdiagramsbyidAES(id).size());
 
     }
 
     public List<Diagram> getList_diagram() {
-        return new StaticTables().daoDiagram.getdiagramsbyidAES(id);
+        return StaticTables.getInstance().daoDiagram.getdiagramsbyidAES(id);
     }
 
     @Override

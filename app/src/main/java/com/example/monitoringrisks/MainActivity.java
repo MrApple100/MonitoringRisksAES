@@ -57,7 +57,7 @@ public class MainActivity extends FragmentActivity {
 
         User user = new User("alexander","zaporozhskih");
 
-        new StaticTables().daoUser.insert(user);
+        StaticTables.getInstance().daoUser.insert(user);
 
 
     }

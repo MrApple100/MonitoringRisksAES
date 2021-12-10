@@ -21,6 +21,7 @@ import com.example.monitoringrisks.R;
 import com.example.monitoringrisks.StaticTables;
 import com.example.monitoringrisks.TypeDiagram;
 import com.example.monitoringrisks.viewmodel.AESViewModel;
+import com.example.monitoringrisks.viewmodel.EnumFragmentName;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +31,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class FragmentFavorite extends Fragment {
+    private final EnumFragmentName enumFragmentName = EnumFragmentName.Favorite;
     static private FragmentFavorite instance;
     private static FragmentManyAES activefragmentManyAES;
 
@@ -39,19 +41,13 @@ public class FragmentFavorite extends Fragment {
         }else{
             FragmentManager fm = instance.getFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
-            List<AESViewModel> aesViewModels = new StaticTables().daoAES.findAll().stream().filter(new Predicate<AES>() {
-                @Override
-                public boolean test(AES aes) {
-                    System.out.println("CHF: "+aes.getIs_favorite());
-                    return aes.getIs_favorite();
-                }
-            }).map(i -> {
+            List<AESViewModel> aesViewModels = StaticTables.getInstance().daoFavoriteAES.findFavoriteAll().stream().map(i -> {
                 AESViewModel aesViewModel = new AESViewModel();
                 aesViewModel.aesLiveData.set(i);
                 return aesViewModel;
             }).collect(Collectors.toList());
             Log.d("FAVLIST",aesViewModels.toString());
-            FragmentManyAES fragmentManyAES = new FragmentManyAES(aesViewModels);
+            FragmentManyAES fragmentManyAES = new FragmentManyAES(aesViewModels,instance.enumFragmentName,instance);
             ft.replace(R.id.FLfavorite,fragmentManyAES);
             ft.commit();
         }
@@ -76,19 +72,14 @@ public class FragmentFavorite extends Fragment {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft= fm.beginTransaction();
 
-        List<AESViewModel> aesViewModels = new StaticTables().daoAES.findAll().stream().filter(new Predicate<AES>() {
-            @Override
-            public boolean test(AES aes) {
-                return aes.getIs_favorite();
-            }
-        }).map(i -> {
+        List<AESViewModel> aesViewModels = StaticTables.getInstance().daoFavoriteAES.findFavoriteAll().stream().map(i -> {
             AESViewModel aesViewModel = new AESViewModel();
             aesViewModel.aesLiveData.set(i);
             return aesViewModel;
         }).collect(Collectors.toList());
         Log.d("FAVLIST",aesViewModels.toString());
 
-        FragmentManyAES fragmentManyAES = new FragmentManyAES(aesViewModels);
+        FragmentManyAES fragmentManyAES = new FragmentManyAES(aesViewModels,enumFragmentName,instance);
 
         ft.replace(R.id.FLfavorite,fragmentManyAES);
         ft.commit();

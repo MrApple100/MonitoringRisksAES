@@ -1,18 +1,26 @@
 package com.example.monitoringrisks;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.monitoringrisks.Fragments.FragmentAES;
+import com.example.monitoringrisks.Fragments.Pages.FragmentFeed;
 import com.example.monitoringrisks.databinding.VManyAesItemBinding;
 import com.example.monitoringrisks.viewmodel.AESViewModel;
+import com.example.monitoringrisks.viewmodel.EnumFragmentName;
 import com.example.monitoringrisks.viewmodel.ManyAESViewModel;
 
 import java.util.Collection;
@@ -24,10 +32,13 @@ public class AdapterManyAES extends RecyclerView.Adapter<AdapterManyAES.AESHolde
 
     ManyAESViewModel manyAESViewModel;
     VManyAesItemBinding binding;
+    EnumFragmentName name;
+    Fragment rootfragment;
 
-
-    public AdapterManyAES(ManyAESViewModel manyAESViewModel) {
+    public AdapterManyAES(ManyAESViewModel manyAESViewModel, EnumFragmentName name, Fragment rootfragment) {
             this.manyAESViewModel = manyAESViewModel;
+            this.name = name;
+            this.rootfragment = rootfragment;
     }
 
 
@@ -35,7 +46,6 @@ public class AdapterManyAES extends RecyclerView.Adapter<AdapterManyAES.AESHolde
     @Override
     public AESHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-
         binding = DataBindingUtil.inflate(layoutInflater,R.layout.v_many_aes_item,parent,false);
         return new AESHolder(binding);
     }
@@ -49,49 +59,43 @@ public class AdapterManyAES extends RecyclerView.Adapter<AdapterManyAES.AESHolde
         AESViewModel aesViewModel = manyAESViewModel.listaes.getValue().get(position);
         AES aes = aesViewModel.aesLiveData.get();
         ImageView setfavorite = binding.getRoot().findViewById(R.id.SETFavorite);
-        if(aes.getIs_favorite())
+        LinearLayout buttofragAES =binding.getRoot().findViewById(R.id.ButtontofragAES);
+        if(aes.getIs_favorite()){
+            setfavorite.setBackgroundColor(Color.BLUE);
+        }else{
             setfavorite.setBackgroundColor(Color.RED);
+        }
+
         setfavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                aes.setIs_favorite(!aes.getIs_favorite());
                 if(aes.getIs_favorite()){
-                    aes.setIs_favorite(false);
+                    setfavorite.setBackgroundColor(Color.BLUE);
                 }else{
-                    aes.setIs_favorite(true);
                     setfavorite.setBackgroundColor(Color.RED);
                 }
+                if(name==EnumFragmentName.Favorite && !aes.getIs_favorite()){
+                    holder.itemView.setVisibility(View.GONE);
+                    System.out.println("REMOVE"+manyAESViewModel.listaes.getValue());
+                }
 
+                StaticTables.getInstance().daoFavoriteAES.changeisFav(aes.getIs_favorite(),aes.getId());
 
+                System.out.println(StaticTables.getInstance().daoAES.findAll());
+            }
+        });
+        buttofragAES.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                System.out.println(new StaticTables().daoAES.findAll());
-                new StaticTables().daoAES.changeisFav(aes.getIs_favorite(),aes.getId());
+                FragmentManager fm = rootfragment.getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                FragmentAES fragmentAES = new FragmentAES(aes.getId());
 
-                List<AES> aess = new StaticTables().daoAES.findAll().stream().filter(new Predicate<AES>() {
-                    @Override
-                    public boolean test(AES aes) {
-                        return aes.getIs_favorite();
-                    }
-                }).collect(Collectors.toList());
-                System.out.println("1 "+aess);
-
-                aess = new StaticTables().daoAES.findAll().stream().filter(new Predicate<AES>() {
-                    @Override
-                    public boolean test(AES aes) {
-                        return aes.getIs_favorite();
-                    }
-                }).collect(Collectors.toList());
-                System.out.println("2 "+aess);
-                AESRepository.getInstance().refresh();
-
-                aess = new StaticTables().daoAES.findAll().stream().filter(new Predicate<AES>() {
-                    @Override
-                    public boolean test(AES aes) {
-                        return aes.getIs_favorite();
-                    }
-                }).collect(Collectors.toList());
-                System.out.println("3 "+aess);
-
+                ft.replace(R.id.ActivityFrame,fragmentAES);
+                ft.commit();
             }
         });
         Log.d("AES",aesViewModel.aesLiveData.get().getName());
@@ -116,6 +120,10 @@ public class AdapterManyAES extends RecyclerView.Adapter<AdapterManyAES.AESHolde
         public void bind(AESViewModel aesViewModel) {
 
             binding.setAes(aesViewModel);
+            binding.executePendingBindings();
+        }
+        public void unbind(){
+            binding.unbind();
             binding.executePendingBindings();
         }
     }

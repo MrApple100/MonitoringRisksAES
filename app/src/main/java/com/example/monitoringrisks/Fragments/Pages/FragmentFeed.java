@@ -21,6 +21,7 @@ import com.example.monitoringrisks.R;
 import com.example.monitoringrisks.StaticTables;
 import com.example.monitoringrisks.TypeDiagram;
 import com.example.monitoringrisks.viewmodel.AESViewModel;
+import com.example.monitoringrisks.viewmodel.EnumFragmentName;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +37,7 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class FragmentFeed extends Fragment {
+    private final EnumFragmentName enumFragmentName = EnumFragmentName.Feed;
     private static FragmentFeed instance;
     private static FragmentManyAES activefragmentManyAES;
 
@@ -45,11 +47,14 @@ public class FragmentFeed extends Fragment {
         }else{
             FragmentManager fm = instance.getFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
-            if (!activefragmentManyAES.isAdded()) {
-                ft.add(R.id.FLfeed, activefragmentManyAES);
-            } else {
-                ft.show(activefragmentManyAES);
-            }
+            List<AESViewModel> aesViewModels = StaticTables.getInstance().daoAES.findAll().stream().map(i -> {
+                AESViewModel aesViewModel = new AESViewModel();
+                aesViewModel.aesLiveData.set(i);
+                return aesViewModel;
+            }).collect(Collectors.toList());
+            Log.d("FAVLIST",aesViewModels.toString());
+            FragmentManyAES fragmentManyAES = new FragmentManyAES(aesViewModels,instance.enumFragmentName,instance);
+            ft.replace(R.id.FLfeed,fragmentManyAES);
             ft.commit();
         }
         return instance;
@@ -82,51 +87,28 @@ public class FragmentFeed extends Fragment {
         diagramHashMap.add(diagramR);
         diagramHashMap.add(diagramB);
         System.out.println("dhm"+diagramHashMap);
-        AES aes = new AES("AES3",true,true);
-        aes.setDiscription("хорошая АЭС");
+        AES aes = new AES("AES2",false,false);
+        aes.setDiscription("плохая АЭС");
         aes.setList_diagram(diagramHashMap);
 
-        new StaticTables().daoAES.insert(aes);
-        System.out.println("KOK "+new StaticTables().daoAES.findAll().get(0));
-        System.out.println("KOK "+new StaticTables().daoAES.findAll().get(0));
+        StaticTables.getInstance().daoAES.insert(aes);
+        System.out.println("KOK "+StaticTables.getInstance().daoAES.findAll().get(0));
+        System.out.println("KOK "+StaticTables.getInstance().daoAES.findAll().get(0));
         AESRepository.getInstance().refresh();
 
-        Subscription subscription = Observable.create(new Observable.OnSubscribe<List<AES>>() {
-            @Override
-            public void call(Subscriber<? super List<AES>> subscriber) {
-                subscriber.onNext(AESRepository.getInstance().getData());
-                subscriber.onCompleted();
-            }
-        }).onErrorResumeNext(new Func1<Throwable, Observable<? extends List<AES>>>() {
-            @Override
-            public Observable<? extends List<AES>> call(Throwable throwable) {
-                System.out.println("ERROR");
-                return Observable.just(new ArrayList<>());
-            }
-        }).map( new Func1<List<AES>,List<AESViewModel>>() {
-            @Override
-            public List<AESViewModel> call(List<AES> aess) {
-               return aess.stream().map(i -> {
-                    AESViewModel aesViewModel = new AESViewModel();
-                    aesViewModel.aesLiveData.set(i);
-                    return aesViewModel;
-                }).collect(Collectors.toList());
-            }
-        }).subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe( new Action1<List<AESViewModel>>() {
-                    @Override
-                    public void call(List<AESViewModel> aesViewModels) {
-                        System.out.println("OK");
-                        FragmentManyAES fragmentManyAES = new FragmentManyAES(aesViewModels);
-                        FragmentManager fm = getFragmentManager();
-                        FragmentTransaction ft= fm.beginTransaction();
-                        ft.replace(R.id.FLfeed,fragmentManyAES);
-                        ft.commit();
-                        activefragmentManyAES =fragmentManyAES;
-                    }
-                });
-
+        List<AES> aess =AESRepository.getInstance().getData();
+           List<AESViewModel> aesViewModels = aess.stream().map(i -> {
+                AESViewModel aesViewModel = new AESViewModel();
+                aesViewModel.aesLiveData.set(i);
+                return aesViewModel;
+            }).collect(Collectors.toList());
+        System.out.println("OK");
+        FragmentManyAES fragmentManyAES = new FragmentManyAES(aesViewModels, enumFragmentName,instance);
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft= fm.beginTransaction();
+        ft.replace(R.id.FLfeed,fragmentManyAES);
+        ft.commit();
+        activefragmentManyAES =fragmentManyAES;
 
 
 

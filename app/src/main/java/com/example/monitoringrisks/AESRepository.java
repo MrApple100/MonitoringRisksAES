@@ -15,7 +15,7 @@ import rx.schedulers.Schedulers;
 public class AESRepository {
     private static AESRepository instance;
     private AESNetwork aesnetwork = new AESNetwork();
-    private DaoAES daoAES = new StaticTables().daoAES;
+    private DaoAES daoAES = StaticTables.getInstance().daoAES;
     private List<AES> data;
     private AESRepository() {
         data = daoAES.findAll();

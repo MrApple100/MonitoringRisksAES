@@ -15,12 +15,15 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.monitoringrisks.R;
 import com.example.monitoringrisks.StaticTables;
 import com.example.monitoringrisks.databinding.FragmentProfileViewBinding;
+import com.example.monitoringrisks.viewmodel.EnumFragmentName;
 import com.example.monitoringrisks.viewmodel.ProfileViewModel;
 
 public class FragmentProfile extends Fragment {
+    private final EnumFragmentName enumFragmentName = EnumFragmentName.Profile;
     static private FragmentProfile instance;
     ViewModelProvider mFragmentProvider;
     ProfileViewModel profileViewModel;
+
     public static FragmentProfile getInstance() {
         if(instance==null){
             instance = new FragmentProfile();
@@ -38,8 +41,8 @@ public class FragmentProfile extends Fragment {
             mFragmentProvider = new ViewModelProvider(this);
         }
         profileViewModel = mFragmentProvider.get(ProfileViewModel.class);
-        Log.d("USER",new StaticTables().daoUser.get().getSurname()+"");
-        profileViewModel.user.setValue(new StaticTables().daoUser.get());
+        Log.d("USER",StaticTables.getInstance().daoUser.get().getSurname()+"");
+        profileViewModel.user.setValue(StaticTables.getInstance().daoUser.get());
     }
 
     @Nullable
