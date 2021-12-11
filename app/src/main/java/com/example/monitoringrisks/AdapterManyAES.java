@@ -96,6 +96,7 @@ public class AdapterManyAES extends RecyclerView.Adapter<AdapterManyAES.AESHolde
 
                 ft.replace(R.id.ActivityFrame,fragmentAES);
                 ft.commit();
+                ft.addToBackStack("tofeedorfavorite");
             }
         });
         Log.d("AES",aesViewModel.aesLiveData.get().getName());

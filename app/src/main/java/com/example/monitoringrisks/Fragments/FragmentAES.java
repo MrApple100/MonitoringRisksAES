@@ -38,22 +38,28 @@ public class FragmentAES extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if(mFragmentProvider == null){
             mFragmentProvider = new ViewModelProvider(this);
         }
         aesViewModel = mFragmentProvider.get(AESViewModel.class);
         aesViewModel.aesLiveData.set(AESRepository.getInstance().getAES(hcName));
-       //View view = inflater.inflate(R.layout.view_fragment_aes,container,false);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
         binding = DataBindingUtil.setContentView(this.getActivity(), R.layout.view_fragment_aes);
-
-
         binding.setAes(aesViewModel);
+
+        ImageView back =(ImageView) binding.getRoot().findViewById(R.id.tofeedorfavorite);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Returnback();
+            }
+        });
 
         FragmentManyDiagrams fragmentManyDiagrams = new FragmentManyDiagrams(aesViewModel.aesLiveData.get().getList_diagram());
         FragmentManager fm = getFragmentManager();
@@ -73,5 +79,13 @@ public class FragmentAES extends Fragment {
 
         imageView.setImageBitmap(bitmap);
 
+    }
+    public void Returnback(){
+        FragmentManager fm = getFragmentManager();
+        if(fm.getBackStackEntryCount()>0) {
+            fm.popBackStack();
+        }else{
+
+        }
     }
 }
