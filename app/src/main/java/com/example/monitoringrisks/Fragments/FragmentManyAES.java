@@ -34,10 +34,12 @@ public class FragmentManyAES extends Fragment {
     ViewFragmentManyAesBinding binding;
     ViewModelProvider mFragmentProvider;
     EnumFragmentName name;
+    String rootfragmentname;
     Fragment rootfragment;
 
-    public FragmentManyAES(List<AESViewModel> aesViewModels, EnumFragmentName name,Fragment rootfragment) {
+    public FragmentManyAES(List<AESViewModel> aesViewModels, EnumFragmentName name,String rootfragmentname,Fragment rootfragment) {
         this.aesViewModels = aesViewModels;
+        this.rootfragmentname = rootfragmentname;
         this.rootfragment = rootfragment;
         Log.d("AESLIST",aesViewModels.toString());
 
@@ -69,7 +71,7 @@ public class FragmentManyAES extends Fragment {
             AESRepository.getInstance().refresh();
         }
 
-        AdapterManyAES adapterManyAES = new AdapterManyAES(manyAESViewModel,name,rootfragment);
+        AdapterManyAES adapterManyAES = new AdapterManyAES(manyAESViewModel,name,rootfragmentname,rootfragment);
         binding.setAdapter(adapterManyAES);
         //binding.executePendingBindings();
         binding.getRoot().setBackgroundColor(Color.BLUE);

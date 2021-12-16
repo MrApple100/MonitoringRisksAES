@@ -16,7 +16,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.monitoringrisks.AES;
 import com.example.monitoringrisks.AESRepository;
 import com.example.monitoringrisks.Diagram;
+
+
 import com.example.monitoringrisks.Fragments.FragmentManyAES;
+import com.example.monitoringrisks.MainActivity;
 import com.example.monitoringrisks.R;
 import com.example.monitoringrisks.StaticTables;
 import com.example.monitoringrisks.TypeDiagram;
@@ -39,13 +42,17 @@ import rx.schedulers.Schedulers;
 public class FragmentFeed extends Fragment {
     private final EnumFragmentName enumFragmentName = EnumFragmentName.Feed;
     private static FragmentFeed instance;
+    public static final String instancename = "FEED";
     private static FragmentManyAES activefragmentManyAES;
 
     public static FragmentFeed getInstance() {
         if(instance==null){
             instance = new FragmentFeed();
         }else{
-            FragmentManager fm = instance.getFragmentManager();
+
+            System.out.println(instance);
+            FragmentManager fm =instance.getActivity().getSupportFragmentManager();
+            System.out.println(fm);
             FragmentTransaction ft = fm.beginTransaction();
             List<AESViewModel> aesViewModels = StaticTables.getInstance().daoAES.findAll().stream().map(i -> {
                 AESViewModel aesViewModel = new AESViewModel();
@@ -53,13 +60,16 @@ public class FragmentFeed extends Fragment {
                 return aesViewModel;
             }).collect(Collectors.toList());
             Log.d("FAVLIST",aesViewModels.toString());
-            FragmentManyAES fragmentManyAES = new FragmentManyAES(aesViewModels,instance.enumFragmentName,instance);
+
+            FragmentManyAES fragmentManyAES = new FragmentManyAES(aesViewModels,instance.enumFragmentName,instancename,instance);
             ft.replace(R.id.FLfeed,fragmentManyAES);
             ft.commit();
+
+
         }
         return instance;
     }
-    private FragmentFeed(){
+    public FragmentFeed(){
 
     }
 
@@ -87,8 +97,8 @@ public class FragmentFeed extends Fragment {
         diagramHashMap.add(diagramR);
         diagramHashMap.add(diagramB);
         System.out.println("dhm"+diagramHashMap);
-        AES aes = new AES("AES2",false,false);
-        aes.setDiscription("плохая АЭС");
+        AES aes = new AES("Балаковская АЭС",false,false);
+        aes.setDiscription("Россия, Саратовская область, Балаковский район, Натальинское муниципальное образование");
         aes.setList_diagram(diagramHashMap);
 
         StaticTables.getInstance().daoAES.insert(aes);
@@ -103,15 +113,22 @@ public class FragmentFeed extends Fragment {
                 return aesViewModel;
             }).collect(Collectors.toList());
         System.out.println("OK");
-        FragmentManyAES fragmentManyAES = new FragmentManyAES(aesViewModels, enumFragmentName,instance);
-        FragmentManager fm = getFragmentManager();
+        FragmentManyAES fragmentManyAES = new FragmentManyAES(aesViewModels, enumFragmentName,instancename,instance);
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+
         FragmentTransaction ft= fm.beginTransaction();
         ft.replace(R.id.FLfeed,fragmentManyAES);
-        ft.commit();
-        activefragmentManyAES =fragmentManyAES;
+        ft.commitAllowingStateLoss();
+        activefragmentManyAES = fragmentManyAES;
 
 
 
 
+
+
+    }
+
+    public static FragmentManyAES getActivefragmentManyAES() {
+        return activefragmentManyAES;
     }
 }

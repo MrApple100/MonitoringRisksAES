@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 public class FragmentFavorite extends Fragment {
     private final EnumFragmentName enumFragmentName = EnumFragmentName.Favorite;
     static private FragmentFavorite instance;
+    public static final String instancename = "FAVORITE";
     private static FragmentManyAES activefragmentManyAES;
 
     public static FragmentFavorite getInstance() {
@@ -47,7 +48,8 @@ public class FragmentFavorite extends Fragment {
                 return aesViewModel;
             }).collect(Collectors.toList());
             Log.d("FAVLIST",aesViewModels.toString());
-            FragmentManyAES fragmentManyAES = new FragmentManyAES(aesViewModels,instance.enumFragmentName,instance);
+            FragmentManyAES fragmentManyAES = new FragmentManyAES(aesViewModels,instance.enumFragmentName,instancename,instance);
+           // NavigationFragment.getInstance().loadFragment(instance,fragmentManyAES);
             ft.replace(R.id.FLfavorite,fragmentManyAES);
             ft.commit();
         }
@@ -79,7 +81,7 @@ public class FragmentFavorite extends Fragment {
         }).collect(Collectors.toList());
         Log.d("FAVLIST",aesViewModels.toString());
 
-        FragmentManyAES fragmentManyAES = new FragmentManyAES(aesViewModels,enumFragmentName,instance);
+        FragmentManyAES fragmentManyAES = new FragmentManyAES(aesViewModels,enumFragmentName,instancename,instance);
 
         ft.replace(R.id.FLfavorite,fragmentManyAES);
         ft.commit();

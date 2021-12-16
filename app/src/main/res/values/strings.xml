@@ -5,4 +5,6 @@
     <string name="surname">Surname</string>
     <string name="name">Name</string>
     <string name="position">Position</string>
+    <string name="textadress">Адрес</string>
+    <string name="textsite">Сайт</string>
 </resources>

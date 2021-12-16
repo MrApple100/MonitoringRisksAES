@@ -11,13 +11,14 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.monitoringrisks.Fragments.Pages.FragmentFeed;
 import com.example.monitoringrisks.Fragments.FragmentNavigationPanel;
+import com.example.monitoringrisks.Fragments.Pages.NavigationFragment;
 
 import java.lang.reflect.Field;
 
 public class MainActivity extends FragmentActivity {
     private static Context instance;
     private static Activity activity;
-
+    private static FragmentManager fm;
 
 
     @Override
@@ -38,21 +39,19 @@ public class MainActivity extends FragmentActivity {
         activity = this;
 
 
-        FragmentManager fm = getSupportFragmentManager();
+        fm = getSupportFragmentManager();
         FragmentTransaction ft= fm.beginTransaction();
-
-        FragmentFeed fragmentFeed = FragmentFeed.getInstance();
-
-        ft.replace(R.id.ActivityFrame,fragmentFeed);
-        ft.commit();
-        ft = fm.beginTransaction();
-
-
 
 
         FragmentNavigationPanel navigationPanel = FragmentNavigationPanel.getInstance();
         ft.add(R.id.BotNav,navigationPanel);
-        ft.commit();
+        ft.commitAllowingStateLoss();
+        ft = fm.beginTransaction();
+        FragmentFeed fragmentFeed = FragmentFeed.getInstance();
+
+        ft.replace(R.id.ActivityFrame,fragmentFeed);
+        ft.commitAllowingStateLoss();
+
 
 
         User user = new User("alexander","zaporozhskih");
@@ -67,5 +66,8 @@ public class MainActivity extends FragmentActivity {
     }
     public static Activity getActivity() {
         return activity;
+    }
+    public static FragmentManager getFm() {
+        return fm;
     }
 }

@@ -10,11 +10,11 @@
             type="AESViewModel" />
     </data>
     <LinearLayout
+
         android:background="@drawable/rectanglepost"
         android:layout_width="330dp"
         android:layout_height="330dp"
         android:orientation="vertical"
-
         android:layout_marginTop="10dp">
         <LinearLayout
             android:id="@+id/ImageandName"
@@ -116,15 +116,40 @@
             android:layout_width="310dp"
             android:layout_height="130dp"
             android:layout_marginTop="15dp"
+            android:orientation="vertical"
             >
-
             <TextView
+                android:id="@+id/TVadress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/textadress"
+                android:textColor="@color/black"
+                android:textSize="14sp">
+            </TextView>
+            <TextView
+                android:id="@+id/Adress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{aes.aesLiveData.discription}"
-                android:textColor="@color/white"
-                android:textSize="10dp">
-
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/black"
+                android:textSize="14sp">
+            </TextView>
+            <TextView
+                android:id="@+id/TVsite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/textsite"
+                android:textColor="@color/black"
+                android:textSize="14sp">
+            </TextView>
+            <TextView
+                android:id="@+id/Site"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{aes.aesLiveData.discription}"
+                android:textColor="@color/boldberez"
+                android:textSize="14dp">
             </TextView>
         </LinearLayout>
         <LinearLayout
