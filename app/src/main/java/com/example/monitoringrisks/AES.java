@@ -12,11 +12,11 @@ public class AES {
     @PrimaryKey
     private int id;
     @ColumnInfo(name = "Photo")
-    private String Photo;
+    private String photo;
     @ColumnInfo(name = "Name")
-    private String Name;
+    private String name;
     @ColumnInfo(name = "Description")
-    private String Discription;
+    private String discription;
     @ColumnInfo(name = "isFavorite")
     private boolean is_favorite;
     @ColumnInfo(name = "isComparable")
@@ -25,14 +25,17 @@ public class AES {
    // private List<Long> list_ids_diagram = new ArrayList<>();
 
     public AES(String Name,boolean is_favorite,boolean is_comparable) {
-        this.Name = Name;
+        this.name = Name;
         this.id = Name.hashCode();
         this.is_favorite=is_favorite;
         this.is_comparable=is_comparable;
     }
 
+    public AES() {
+    }
+
     public void setPhoto(String photo) {
-        this.Photo = photo;
+        this.photo = photo;
     }
 
     public int getId() {
@@ -40,23 +43,23 @@ public class AES {
     }
 
     public String getPhoto() {
-        return Photo;
+        return photo;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public String getDiscription() {
-        return Discription;
+        return discription;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setName(String name) {
+        this.name = name;
     }
 /*
     public void setList_ids_diagram(List<Long> list_ids_diagram) {
@@ -88,7 +91,7 @@ public class AES {
     }
 
     public void setDiscription(String discription) {
-        this.Discription = discription;
+        this.discription = discription;
         StaticTables.getInstance().daoAES.update(this);
     }
 
@@ -110,9 +113,9 @@ public class AES {
     public String toString() {
         return "AES{" +
                 "id=" + id +
-                ", Photo='" + Photo + '\'' +
-                ", Name='" + Name + '\'' +
-                ", Discription='" + Discription + '\'' +
+                ", Photo='" + photo + '\'' +
+                ", Name='" + name + '\'' +
+                ", Discription='" + discription + '\'' +
                 ", is_favorite=" + is_favorite +
                 ", is_comparable=" + is_comparable +
                 '}';

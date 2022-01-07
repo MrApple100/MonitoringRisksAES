@@ -19,7 +19,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
@@ -33,6 +33,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:background="@drawable/rectangle"
                     >
                 </ImageView>
             </LinearLayout>
@@ -73,10 +74,23 @@
             android:orientation="vertical"
             android:gravity="center_horizontal">
             <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="13dp">
+                <ImageView
+                    android:id="@+id/imageprofile"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:background="@drawable/rectangle"/>
+
+
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="330dp"
                 android:layout_height="130dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="73dp"
+                android:layout_marginTop="26dp"
                 android:background="@drawable/rectanglewhite">
                 <LinearLayout
                     android:layout_width="match_parent"

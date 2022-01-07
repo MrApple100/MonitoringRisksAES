@@ -2,6 +2,7 @@ package com.example.monitoringrisks.Fragments.Pages;
 
 import androidx.fragment.app.Fragment;
 
+
 public class FragmentCompare extends Fragment {
     static private FragmentCompare instance;
 
@@ -14,4 +15,5 @@ public class FragmentCompare extends Fragment {
     private FragmentCompare(){
 
     }
+
 }

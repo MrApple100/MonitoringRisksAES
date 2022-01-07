@@ -8,7 +8,7 @@
     android:viewportHeight="25"
     >
     <path
-        android:fillColor="#7DD5E1"
+        android:fillColor="#000000"
         android:fillType="nonZero"
         android:strokeWidth="1"
         android:strokeColor="#00000000"

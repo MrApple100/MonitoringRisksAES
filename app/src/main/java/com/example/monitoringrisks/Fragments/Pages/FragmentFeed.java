@@ -20,6 +20,7 @@ import com.example.monitoringrisks.Diagram;
 
 import com.example.monitoringrisks.Fragments.FragmentManyAES;
 import com.example.monitoringrisks.MainActivity;
+import com.example.monitoringrisks.Networks.Network;
 import com.example.monitoringrisks.R;
 import com.example.monitoringrisks.StaticTables;
 import com.example.monitoringrisks.TypeDiagram;
@@ -102,6 +103,9 @@ public class FragmentFeed extends Fragment {
         aes.setList_diagram(diagramHashMap);
 
         StaticTables.getInstance().daoAES.insert(aes);
+
+        new Network().postAES(aes.getId(),aes);
+
         System.out.println("KOK "+StaticTables.getInstance().daoAES.findAll().get(0));
         System.out.println("KOK "+StaticTables.getInstance().daoAES.findAll().get(0));
         AESRepository.getInstance().refresh();
