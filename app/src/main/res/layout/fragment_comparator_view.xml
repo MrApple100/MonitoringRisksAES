@@ -61,12 +61,29 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
-            <ViewFlipper
+            <LinearLayout
+                android:id="@+id/LLComp1"
                 android:layout_gravity="center_horizontal"
-            android:layout_width="162dp"
-            android:layout_height="251dp">
+                android:layout_width="162dp"
+                android:layout_height="251dp"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+                <ViewFlipper
+                    android:layout_marginTop="17dp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/rectangle"
+                    >
+                </ViewFlipper>
+                <ViewFlipper
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-            </ViewFlipper>
+                    >
+                </ViewFlipper>
+
+            </LinearLayout>
             <FrameLayout
                 android:id="@+id/FLComp1"
                 android:layout_marginTop="17dp"
@@ -79,12 +96,16 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
-            <ViewFlipper
+            <LinearLayout
+                android:id="@+id/LLComp2"
                 android:layout_gravity="center"
                 android:layout_width="162dp"
-                android:layout_height="251dp">
+                android:layout_height="251dp"
+                android:orientation="vertical"
+                >
 
-            </ViewFlipper>
+
+            </LinearLayout>
             <FrameLayout
                 android:id="@+id/FLComp2"
                 android:layout_marginTop="17dp"
